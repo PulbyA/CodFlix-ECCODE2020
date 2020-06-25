@@ -152,6 +152,20 @@ INSERT INTO `episode` (`id`, `media_id`, `season`, `episode`, `episode_url`, `ti
 (9, 4, 2, 1, "https://www.youtube.com/embed/akRGciMZaDs", "Reboot (partie 1)", "2x01", "2010-11-16", 533),
 (10, 4, 2, 2, "https://www.youtube.com/embed/YuDdR79QP78", "Reboot (partie 2)", "2x02", "2011-01-20", 499)
 ;
+
+--
+-- Table structure for table `email`
+--
+
+DROP TABLE IF EXISTS `email`;
+CREATE TABLE `email` (
+  `id` int(11) NOT NULL,
+  `sender` varchar(150) NOT NULL,
+  `receiver` varchar(150) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `type` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -192,6 +206,12 @@ ALTER TABLE `episode`
   ADD KEY `episode_media_id_fk_media_id` (`media_id`);
 
 --
+-- Indexes for table `email`
+--
+ALTER TABLE `email`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -224,6 +244,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `episode`
 --
 ALTER TABLE `episode`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `email`
+--
+ALTER TABLE `email`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables

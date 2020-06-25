@@ -18,11 +18,22 @@ public class EpisodeController {
 
     public String list(Request request, Response response) {
         Map<Integer, List<Episode>> episodeList;
+        List<Episode> episodes;
 
+        String season = request.queryParams("season");
         episodeList = episodeDao.getEpisodesOrderedBySeason();
         Media media = mediaDao.getMediaById(episodeList.get(1).get(0).getMediaId());
 
+        if(season != null && !season.isEmpty()){
+            episodes = episodeDao.getEpisodeBySeason(Integer.parseInt(season));
+        }
+        else {
+            episodes = episodeDao.getEpisodeBySeason(1);
+        }
+
+
         Map<String, Object> model = new HashMap<>();
+        model.put("episodes", episodes );
         model.put("media", media);
         model.put("episodeList", episodeList);
         return Template.render("episode_list.html", model);

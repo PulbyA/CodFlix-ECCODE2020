@@ -3,6 +3,7 @@ package com.codflix.backend;
 import com.codflix.backend.core.Conf;
 import com.codflix.backend.core.Database;
 import com.codflix.backend.core.Template;
+import com.codflix.backend.features.contact.ContactController;
 import com.codflix.backend.features.genre.GenreController;
 import com.codflix.backend.features.history.HistoryController;
 import com.codflix.backend.features.media.MediaController;
@@ -34,6 +35,7 @@ public class App {
         MediaController media = new MediaController();
         EpisodeController episode = new EpisodeController();
         HistoryController history = new HistoryController();
+        ContactController contact = new ContactController();
 
         // Routes
         // Every request should be mapped here to a controller method
@@ -51,6 +53,9 @@ public class App {
         Spark.get("/medias/", (req, res) -> media.list(req, res));
         Spark.get("/medias/", (req, res) -> genre.list(req, res));
         Spark.get("/histories/", (req, res) -> history.list(req, res));
+
+        Spark.get("/contact", (req, res) -> contact.send(req, res));
+        Spark.post("contact", (req, res) -> contact.send(req, res));
 
         Spark.get("/", (req, res) -> home.home(req, res));
     }

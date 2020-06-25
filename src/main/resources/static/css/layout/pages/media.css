@@ -38,7 +38,7 @@
     content: "";
     display: block;
     width: 20px;
-
+    border-bottom: 1px solid var(--color-red);
     margin: 10px auto 0 auto;
 }
 
@@ -80,6 +80,11 @@
 .upper-detail .headerText{
     margin-left: 4%;
 }
+
+.upper-detail h1 a{
+    color: #fff;
+}
+
 .upper-detail h1{
     color: #fff;
 }

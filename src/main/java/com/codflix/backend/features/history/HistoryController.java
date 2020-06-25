@@ -22,14 +22,13 @@ public class HistoryController {
         List<History> histories;
 
         Session session = request.session(true);
-        String userIdStr = session.attribute("user_id");
-        if (userIdStr == null || userIdStr.isEmpty()) {
+        Integer userIdStr = session.attribute("user_id");
+        if (userIdStr == null || userIdStr != 0) {
             Spark.halt(401, "No user id provided to see history");
         }
-        int userId = Integer.parseInt(userIdStr);
 
-        User user = userDao.getUserById(userId);
-        histories = historyDao.getStreamsHistoryForUser(userId);
+        User user = userDao.getUserById(userIdStr);
+        histories = historyDao.getStreamsHistoryForUser(userIdStr);
 
         Map<String, Object> model = new HashMap<>();
         model.put("user", user);

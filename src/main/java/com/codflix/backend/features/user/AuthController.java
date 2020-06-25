@@ -58,7 +58,7 @@ public class AuthController {
         String password_confirm = query.get("password_confirm");
         if(null != password && null!= password_confirm) {
             if (!password.equals(password_confirm)) {
-                return "KO : " + password + " " + password_confirm;
+                return "Attention, les mots de passe ne correspondent pas" ;
             }
             userDao.addUser(email, password);
         }

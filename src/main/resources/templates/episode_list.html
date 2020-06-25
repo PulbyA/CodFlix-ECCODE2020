@@ -8,23 +8,28 @@
         <p class="headerText">Durée : $media.getFullDurationFromEpisodes() minutes</p>
         <p class="headerText">$media.findGenreById()</p>
     </div>
-    #foreach($episodes in $episodeList)
-    <div> Saison $episodes.get(0).getSeason()</div>
-        #foreach($episode in $episodes)
-    <div class="episode-list">
-        <a class="item" href="/episodes/$episode.getSeason()/$episode.getEpisode()">
-            <div class="video">
-                <div>
-                    <iframe allowfullscreen="" frameborder="0"
-                            src="$episode.getEpisodeUrl()" ></iframe>
-                </div>
-            </div>
-            <div class="title">
-                $episode.getTitle()
-            </div>
-        </a>
-    </div>
-        #end
+    <form action="/episodes/" method="get">
+        <div class="form-group has-btn">
+    #foreach($season in $episodeList)
+            <button type="submit" name="season" value="$season.get(0).getSeason()" class="btn btn-block bg-red">Saison $season.get(0).getSeason()</button>
     #end
+        </div>
+    </form>
+</div>
+
+<div class="media-list">
+#foreach($episode in $episodes)
+    <a class="item" href="/episodes/$episode.getSeason()/$episode.getEpisode()">
+        <div class="video">
+            <div>
+                <iframe allowfullscreen="" frameborder="0"
+                        src="$episode.getEpisodeUrl()" ></iframe>
+            </div>
+        </div>
+        <div class="title">
+            $episode.getEpisode() - $episode.getTitle()
+        </div>
+    </a>
+#end
 </div>
 #end

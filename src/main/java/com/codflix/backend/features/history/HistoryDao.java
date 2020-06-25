@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class HistoryDao {
         List<History> histories = new ArrayList<>();
         Connection connection = Database.get().getConnection();
         try {
-            PreparedStatement st = connection.prepareStatement("SELECT * FROM stream_history WHERE user_id=?");
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM history WHERE user_id=?");
 
             st.setInt(1, userId);
             ResultSet rs = st.executeQuery();
@@ -28,6 +30,28 @@ public class HistoryDao {
             e.printStackTrace();
         }
         return histories;
+    }
+
+    public void addHistory(int userId, int mediaId, Integer episodeId){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement(
+                    "INSERT INTO history " +
+                            "VALUES (user_id, media_id, episode_id, start_date, finish_date, watch_duration) " +
+                            "(?, ?, ?, ?, '2099-31-12', 0)");
+
+            st.setInt(1, userId);
+            st.setInt(2, mediaId);
+            st.setInt(3, episodeId);
+            st.setString(4, dtf.format(now));
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private History mapToStreamHistory(ResultSet rs) throws SQLException {

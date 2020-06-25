@@ -108,6 +108,26 @@ public class EpisodeDao {
         return episodesList;
     }
 
+    public List<Episode> getEpisodeBySeason(int id) {
+        List<Episode> episodes = new ArrayList<>();
+
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM episode WHERE season=?");
+
+            st.setInt(1, id);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                episodes.add(mapToEpisode(rs));
+            }
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        return episodes;
+    }
+
     private Episode mapToEpisode(ResultSet rs) throws SQLException, ParseException {
         return new Episode(
                 rs.getInt(1), // id

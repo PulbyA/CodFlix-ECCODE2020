@@ -2,7 +2,7 @@
 #@mainLayout()
 
 <div class="row">
-    <div class="col-md-4 offset-md-8">
+    <div class="row-cols-1 m-md-1">
         <form action="/medias/" method="get">
             <select name="type">
                 <option value="">--Sélectionnez un type de média--</option>
@@ -38,38 +38,24 @@
     #foreach($media in $medias)
         #if ($media.getType().equals("movie"))
             <a class="item" href="/medias/$media.getId()">
-                <div class="video">
-                    <div>
-                        <iframe allowfullscreen="" frameborder="0"
-                                src="$media.getTrailerUrl()" ></iframe>
-                    </div>
-                </div>
-                <div class="title">
-                    $media.getTitle()
-                </div>
-                <div class="title">
-                    Date de sortie :
-                    $media.getFormattedDate()
-                </div>
-            </a>
         #end
-        #if ($media.getType().equals("serie"))
+        #if($media.getType().equals("serie"))
             <a class="item" href="/episodes/">
-                <div class="video">
-                    <div>
-                        <iframe allowfullscreen="" frameborder="0"
-                                src="$media.getTrailerUrl()" ></iframe>
-                    </div>
+        #end
+            <div class="video">
+                <div>
+                    <iframe allowfullscreen="" frameborder="0"
+                            src="$media.getTrailerUrl()" ></iframe>
                 </div>
-                <div class="title" class="serie">
-                    $media.getTitle()
-                </div>
-                <div class="title" class="serie">
-                    Date de sortie :
-                    $media.getFormattedDate()
-                </div>
-            </a>
-        #end if
+            </div>
+            <div class="title" class="serie">
+                $media.getTitle()
+            </div>
+            <div class="title" class="serie">
+                Date de sortie :
+                $media.getFormattedDate()
+            </div>
+        </a>
     #end
 </div>
 #end
