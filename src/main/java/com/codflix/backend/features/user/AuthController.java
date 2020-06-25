@@ -29,6 +29,7 @@ public class AuthController {
         Map<String, String> query = URLUtils.decodeQuery(request.body());
         String email = query.get("email");
         String password = query.get("password");
+        password = userDao.sha256(password);
 
         // Authenticate user
         User user = userDao.getUserByCredentials(email, password);
@@ -59,7 +60,7 @@ public class AuthController {
             return "KO : " + password + " " + password_confirm;
         }
 
-        //userDao.addUser(email, password);
+        userDao.addUser(email, password);
         Map<String, Object> model = new HashMap<>();
         return Template.render("auth_signup.html", model);
     }

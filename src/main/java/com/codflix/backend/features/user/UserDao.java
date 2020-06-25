@@ -69,7 +69,7 @@ public class UserDao {
                     "( ?, ?, false);");
 
             st.setString(1, email);
-            st.setString(1, password);
+            st.setString(2, password);
 
             st.executeUpdate();
 
@@ -78,7 +78,7 @@ public class UserDao {
         }
     }
 
-    public static String sha256(String base) {
+    public String sha256(String base) {
         try{
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(base.getBytes("UTF-8"));
