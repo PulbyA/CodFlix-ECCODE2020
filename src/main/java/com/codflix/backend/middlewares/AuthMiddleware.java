@@ -14,7 +14,8 @@ public class AuthMiddleware implements Middleware {
         // Handle routes with no auth first
         if (path.equals("/") ||
                 path.equals("/login") ||
-                path.equals("/signup")) {
+                path.equals("/signup")||
+                path.equals("/contact")) {
 
             return;
         }

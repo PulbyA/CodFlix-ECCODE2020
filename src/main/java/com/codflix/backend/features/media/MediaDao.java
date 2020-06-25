@@ -12,6 +12,10 @@ import java.util.List;
 public class MediaDao {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     *
+     * @return a list of all media from database
+     */
     public List<Media> getAllMedias() {
         List<Media> medias = new ArrayList<>();
 
@@ -29,6 +33,11 @@ public class MediaDao {
         return medias;
     }
 
+    /**
+     *
+     * @param filter
+     * @return a list of medias filtered
+     */
     public List<Media> filterMedias(String filter) {
         List<Media> medias = new ArrayList<>();
 
@@ -38,10 +47,12 @@ public class MediaDao {
         try {
             PreparedStatement st;
 
+            //The query will be done dynamically to enable multiple filters
             String query = "SELECT * FROM media";
 
             String[] filters = (filter.split("/"));
 
+            //Creation of the query
             if(filters.length != 0){
 
                 if(!filters[0].equals(" ") || !filters[1].equals(" ") || !filters[2].equals(" ") || !filters[3].equals(" ") || !filters[4].equals(" ")){
@@ -69,18 +80,19 @@ public class MediaDao {
 
                 }
             }
+
+            //Delete of the last "AND" to be able to execute the Query
             if(query.endsWith("AND")){
                 query = query.substring(0, query.length() - 3);
             }
             query += " ORDER BY release_date DESC;";
 
-            System.out.println(query);
             st = connection.prepareStatement(
                     query);
 
+            //Set the different variables in the query
             for (int i = 0; i < addedFilter.size() ; i++) {
                 st.setString(i+1, filters[addedFilter.get(i)].replaceAll(" ", ""));
-                System.out.println(filters[addedFilter.get(i)]);
             }
 
             ResultSet rs = st.executeQuery();
@@ -94,6 +106,11 @@ public class MediaDao {
         return medias;
     }
 
+    /**
+     *
+     * @param id
+     * @return a single media with its id
+     */
     public Media getMediaById(int id) {
         Media media = null;
 
@@ -114,6 +131,11 @@ public class MediaDao {
         return media;
     }
 
+    /**
+     *
+     * @param id
+     * @return a single media with an episode Id
+     */
     public Media getMediaWithEpisodeId(int id){
         Media media = null;
 

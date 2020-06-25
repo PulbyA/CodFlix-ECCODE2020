@@ -22,6 +22,12 @@ public class MediaController {
     private final HistoryDao historyDao = new HistoryDao();
     private final UserDao userDao = new UserDao();
 
+    /**
+     * Display a list of all medias
+     * @param request
+     * @param response
+     * @return the template.render to media_list.html
+     */
     public String list(Request request, Response response) {
         List<Media> medias;
 
@@ -49,6 +55,12 @@ public class MediaController {
         return Template.render("media_list.html", model);
     }
 
+    /**
+     * Display the detail of a single media
+     * @param request
+     * @param res
+     * @return the template.render to media_detail.html
+     */
     public String detail(Request request, Response res) {
         int id = Integer.parseInt(request.params(":mediaId"));
         Media media = mediaDao.getMediaById(id);
@@ -58,10 +70,9 @@ public class MediaController {
         Integer userIdStr = session.attribute("user_id");
 
         //If we have a user, we had a new history in the database
-        if (userIdStr != null && userIdStr != 0) {
-            historyDao.addHistory(userIdStr, media.getId(), null);
-            System.out.println("History addes in database");
-        }
+        //if (userIdStr != null && userIdStr != 0) {
+        //  historyDao.addHistory(userIdStr, media.getId(), null);
+        //}
 
         //rooting toward media detail page
         Map<String, Object> model = new HashMap<>();

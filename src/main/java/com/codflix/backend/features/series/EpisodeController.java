@@ -16,6 +16,12 @@ public class EpisodeController {
     public EpisodeDao episodeDao = new EpisodeDao();
     public MediaDao mediaDao = new MediaDao();
 
+    /**
+     * Display a liste of all episodes, ordered by season
+     * @param request
+     * @param response
+     * @return
+     */
     public String list(Request request, Response response) {
         Map<Integer, List<Episode>> episodeList;
         List<Episode> episodes;
@@ -39,6 +45,12 @@ public class EpisodeController {
         return Template.render("episode_list.html", model);
     }
 
+    /**
+     * Diplay the detail of an episode
+     * @param request
+     * @param res
+     * @return
+     */
     public String detail(Request request, Response res) {
         int seasonId = Integer.parseInt(request.params(":seasonId"));
         int episodeId = Integer.parseInt(request.params(":episodeId"));

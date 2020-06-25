@@ -11,6 +11,10 @@ import java.util.List;
 
 public class GenreDao {
 
+    /**
+     *
+     * @return all genres in database
+     */
     public List<Genre> getAllGenres() {
         List<Genre> genres = new ArrayList<>();
         Connection connection = Database.get().getConnection();
@@ -32,6 +36,11 @@ public class GenreDao {
         return genres;
     }
 
+    /**
+     *
+     * @param id
+     * @return a single genre from database
+     */
     public Genre getGenreById(int id) {
         Genre genre = null;
 

@@ -13,6 +13,12 @@ public class GenreController {
 
     private final GenreDao genreDao = new GenreDao();
 
+    /**
+     * Display all genres registered in database
+     * @param request
+     * @param response
+     * @return
+     */
     public String list(Request request, Response response) {
         List<Genre> genres = genreDao.getAllGenres();
 

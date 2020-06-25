@@ -9,6 +9,11 @@ import java.util.List;
 
 public class ContactDao {
 
+    /**
+     * Add a contact item into the database
+     * @param sender
+     * @param content
+     */
     public void addContact(String sender, String content){
 
         Connection connection = Database.get().getConnection();
