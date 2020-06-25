@@ -5,6 +5,14 @@
     <div class="col-md-4 offset-md-8">
         <form action="/medias/" method="get">
             <div class="form-group has-btn">
+                $genres
+                <select name="genre">
+
+                    getAllGenres()
+                    #foreach($genre in $genres)
+                        <option value="$genre.getName()">$genre.getName()</option>
+                    #end
+                </select>
                 <input type="search" id="search" name="title" class="form-control"
                        placeholder="Rechercher un film ou une série">
 

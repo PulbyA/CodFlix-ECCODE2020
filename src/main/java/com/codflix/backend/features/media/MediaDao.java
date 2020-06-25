@@ -29,13 +29,14 @@ public class MediaDao {
         return medias;
     }
 
-    public List<Media> filterMedias(String title) {
+    public List<Media> filterMedias(String title, String search) {
         List<Media> medias = new ArrayList<>();
 
         Connection connection = Database.get().getConnection();
         try {
-            PreparedStatement st = connection.prepareStatement("SELECT * FROM media WHERE title=? ORDER BY release_date DESC");
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM media WHERE title LIKE CONCAT('%', ? ,'%' ) ORDER BY release_date DESC");
             st.setString(1, title);
+            //st.setString(2, title);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 medias.add(mapToMedia(rs));

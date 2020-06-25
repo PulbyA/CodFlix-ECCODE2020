@@ -131,15 +131,6 @@ public class Media {
         return genre.getName();
     }
 
-    public List<Episode> getAllEpisodeFromMedia() {
-        EpisodeDao episodeDao = new EpisodeDao();
-        List<Episode> episodes;
-
-        episodes = episodeDao.getAllEpisodeFromMedia(this.id);
-
-        return episodes;
-    }
-
     public int getFullDurationFromEpisodes (){
         duration = 0;
         EpisodeDao episodeDao = new EpisodeDao();

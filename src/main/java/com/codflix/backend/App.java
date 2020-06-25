@@ -41,6 +41,7 @@ public class App {
         Spark.get("/login", (req, res) -> auth.login(req, res));
         Spark.post("login", (req, res) -> auth.login(req, res));
         Spark.get("/signup", (req, res) -> auth.signUp(req, res));
+        Spark.post("signup", (req, res) -> auth.signUp(req, res));
         Spark.get("logout", (req, res) -> auth.logout(req, res));
 
         Spark.get("/genres/", (req, res) -> genre.list(req, res));
@@ -48,6 +49,7 @@ public class App {
         Spark.get("/episodes/", (req, res) -> episode.list(req,res));
         Spark.get("/episodes/:seasonId/:episodeId", (req, res) -> episode.detail(req,res));
         Spark.get("/medias/", (req, res) -> media.list(req, res));
+        Spark.get("/medias/", (req, res) -> genre.list(req, res));
         Spark.get("/histories/", (req, res) -> history.list(req, res));
 
         Spark.get("/", (req, res) -> home.home(req, res));

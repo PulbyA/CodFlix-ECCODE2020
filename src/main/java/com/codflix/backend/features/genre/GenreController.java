@@ -18,6 +18,6 @@ public class GenreController {
 
         Map<String, Object> model = new HashMap<>();
         model.put("genres", genres);
-        return Template.render("genre_list.html", model);
+        return Template.render("media_list.html", model);
     }
 }
