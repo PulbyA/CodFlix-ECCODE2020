@@ -34,9 +34,29 @@ public class MediaDao {
 
         Connection connection = Database.get().getConnection();
         try {
-            PreparedStatement st = connection.prepareStatement("SELECT * FROM media WHERE title LIKE CONCAT('%', ? ,'%' ) ORDER BY release_date DESC");
+            PreparedStatement st;
+            switch (search){
+                case "title" :
+                    st = connection.prepareStatement("SELECT * FROM media WHERE title LIKE CONCAT('%', ? ,'%' ) ORDER BY release_date DESC;");
+                    break;
+                case "genre" :
+                    st = connection.prepareStatement("SELECT * FROM media WHERE genre_id = (SELECT id FROM genre WHERE name = ?) ORDER BY release_date DESC;");
+                    break;
+                case "type" :
+                    st = connection.prepareStatement("SELECT * FROM media WHERE type = ? ORDER BY release_date DESC;");
+                    break;
+                case "date":
+                    String[] dates = (title.split(" "));
+                    title = dates[0];
+                    st = connection.prepareStatement("SELECT * FROM media WHERE release_date BETWEEN ? AND ? ORDER BY release_date DESC;");
+                    st.setString(2, dates[1]);
+                    break;
+                default :
+                    st = connection.prepareStatement("SELECT * FROM media;");
+                    break;
+            }
             st.setString(1, title);
-            //st.setString(2, title);
+
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 medias.add(mapToMedia(rs));

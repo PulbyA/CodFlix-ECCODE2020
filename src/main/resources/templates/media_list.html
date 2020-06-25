@@ -4,15 +4,27 @@
 <div class="row">
     <div class="col-md-4 offset-md-8">
         <form action="/medias/" method="get">
+            <select name="type">
+                <option value="">--Sélectionnez un type de média--</option>
+                <option value="movie">Film</option>
+                <option value="serie">Série</option>
+            </select>
+            <select name="genre">
+                <option value="">--Sélectionnez un genre--</option>
+                #foreach($genre in $genres)
+                <option value="$genre.getName()">$genre.getName()</option>
+                #end
+            </select>
+            <div>
+                <label for="datestart">Date de début : </label>
+                <input type="date" name="datestart" id="datestart"
+                       min="1950-01-01">
+                <label for="datend">Date de fin : </label>
+                <input type="date" name="dateend" id="datend"
+                       min="1950-01-01">
+            </div>
             <div class="form-group has-btn">
-                $genres
-                <select name="genre">
 
-                    getAllGenres()
-                    #foreach($genre in $genres)
-                        <option value="$genre.getName()">$genre.getName()</option>
-                    #end
-                </select>
                 <input type="search" id="search" name="title" class="form-control"
                        placeholder="Rechercher un film ou une série">
 
@@ -25,20 +37,39 @@
 <div class="media-list">
     #foreach($media in $medias)
         #if ($media.getType().equals("movie"))
-        <a class="item" href="/medias/$media.getId()">
-        #else if ($media.getType().equals("serie"))
-        <a class="item" href="/episodes/">
-        #end if
-            <div class="video">
-                <div>
-                    <iframe allowfullscreen="" frameborder="0"
-                            src="$media.getTrailerUrl()" ></iframe>
+            <a class="item" href="/medias/$media.getId()">
+                <div class="video">
+                    <div>
+                        <iframe allowfullscreen="" frameborder="0"
+                                src="$media.getTrailerUrl()" ></iframe>
+                    </div>
                 </div>
-            </div>
-            <div class="title">
-                $media.getTitle()
-            </div>
-        </a>
+                <div class="title">
+                    $media.getTitle()
+                </div>
+                <div class="title">
+                    Date de sortie :
+                    $media.getFormattedDate()
+                </div>
+            </a>
+        #end
+        #if ($media.getType().equals("serie"))
+            <a class="item" href="/episodes/">
+                <div class="video">
+                    <div>
+                        <iframe allowfullscreen="" frameborder="0"
+                                src="$media.getTrailerUrl()" ></iframe>
+                    </div>
+                </div>
+                <div class="title">
+                    $media.getTitle()
+                </div>
+                <div class="title">
+                    Date de sortie :
+                    $media.getFormattedDate()
+                </div>
+            </a>
+        #end if
     #end
 </div>
 #end

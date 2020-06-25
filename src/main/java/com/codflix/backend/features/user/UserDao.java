@@ -3,6 +3,7 @@ package com.codflix.backend.features.user;
 import com.codflix.backend.core.Database;
 import com.codflix.backend.models.User;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,9 +62,10 @@ public class UserDao {
     }
 
     public void addUser(String email, String password){
-        password = sha256(password);
+
         Connection connection = Database.get().getConnection();
         try {
+            password = sha256(password);
             PreparedStatement st = connection.prepareStatement("" +
                     "INSERT INTO user ( email, password, isVerified) VALUES " +
                     "( ?, ?, false);");
@@ -81,12 +83,12 @@ public class UserDao {
     public String sha256(String base) {
         try{
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(base.getBytes("UTF-8"));
-            StringBuffer hexString = new StringBuffer();
+            byte[] hash = digest.digest(base.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
 
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if(hex.length() == 1) hexString.append('0');
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
                 hexString.append(hex);
             }
 

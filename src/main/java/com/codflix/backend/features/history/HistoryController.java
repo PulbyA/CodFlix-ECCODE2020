@@ -24,7 +24,7 @@ public class HistoryController {
         Session session = request.session(true);
         String userIdStr = session.attribute("user_id");
         if (userIdStr == null || userIdStr.isEmpty()) {
-            Spark.halt(401, "No user id provded to see history");
+            Spark.halt(401, "No user id provided to see history");
         }
         int userId = Integer.parseInt(userIdStr);
 

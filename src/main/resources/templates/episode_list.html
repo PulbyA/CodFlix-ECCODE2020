@@ -3,10 +3,10 @@
 
 <div>
     <div class="upper-detail">
-        <h1 class="headerText">$episodeList.get(1)[0].getMedia().getTitle()</h1>
+        <h1 class="headerText">$media.getTitle()</h1>
 
-        <p class="headerText">Durée : $episodeList.get(1)[0].getMedia().getFullDurationFromEpisodes() minutes</p>
-        <p class="headerText">$episodeList.get(1)[0].getMedia().findGenreById()</p>
+        <p class="headerText">Durée : $media.getFullDurationFromEpisodes() minutes</p>
+        <p class="headerText">$media.findGenreById()</p>
     </div>
     #foreach($episodes in $episodeList)
     <div> Saison $episodes.get(0).getSeason()</div>

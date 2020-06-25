@@ -145,7 +145,7 @@ public class Media {
         return duration;
     }
 
-    public String formatDate(){
+    public String getFormattedDate(){
         String newDate = null;
         String pattern = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

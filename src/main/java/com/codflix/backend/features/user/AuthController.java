@@ -56,11 +56,12 @@ public class AuthController {
         String email = query.get("email");
         String password = query.get("password");
         String password_confirm = query.get("password_confirm");
-        if(null != password && null!= password_confirm && !password.equals(password_confirm)){
-            return "KO : " + password + " " + password_confirm;
+        if(null != password && null!= password_confirm) {
+            if (!password.equals(password_confirm)) {
+                return "KO : " + password + " " + password_confirm;
+            }
+            userDao.addUser(email, password);
         }
-
-        userDao.addUser(email, password);
         Map<String, Object> model = new HashMap<>();
         return Template.render("auth_signup.html", model);
     }

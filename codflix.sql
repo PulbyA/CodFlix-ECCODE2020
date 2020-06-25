@@ -93,6 +93,7 @@ CREATE TABLE `history` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `media_id` int(11) NOT NULL,
+  `episode_id` int(11),
   `start_date` datetime NOT NULL,
   `finish_date` datetime DEFAULT NULL,
   `watch_duration` int(11) NOT NULL DEFAULT '0' COMMENT 'in seconds'

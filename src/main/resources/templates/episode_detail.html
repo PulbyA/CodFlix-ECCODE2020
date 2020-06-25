@@ -4,23 +4,23 @@
 <div class="episode-detail">
     <!-- TODO : -->
     <a class="upper-detail">
-        <h1 class="headerText"><a href="/episodes/">$episode.getMedia().getTitle()</a></h1>
+        <h1 class="headerText"><a href="/episodes/">$media.getTitle()</a></h1>
 
         <p class="headerText">Durée : $episode.getDurationInMinutes() minutes</p>
-        <p class="headerText">$episode.getMedia().findGenreById()</p>
+        <p class="headerText">$media.findGenreById()</p>
     </div>
     <div class="episode-content">
         <h1 class="headerText">$episode.getTitle()</h1>
         <div class="left-detail">
             <div class="episode-infos">
-                <p class="text">Réalisateur : <span>$episode.getMedia().getDirector()</span></p>
+                <p class="text">Réalisateur : <span>$media.getDirector()</span></p>
                 <p class="text">Date de sortie : <span>$episode.formatDate()</span></p>
             </div>
 
 
             <div class="episode-summary">
                 <h5>Résumé : </h5>
-                <p>$episode.getSummary()</p>
+                <p>$media.getSummary()</p>
             </div>
         </div>
 
