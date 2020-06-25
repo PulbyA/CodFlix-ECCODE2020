@@ -33,13 +33,17 @@
     padding: 8px 20px;
     text-align: center;
 }
+
 .media-list .item .title:after {
     content: "";
     display: block;
     width: 20px;
 
-    border-bottom: 1px solid var(--color-red);
     margin: 10px auto 0 auto;
+}
+
+.media-list .item .serie:after {
+    border-bottom: 1px solid var(--color-blue);
 }
 
 .media-list .item:hover {

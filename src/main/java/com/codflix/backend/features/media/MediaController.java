@@ -19,26 +19,13 @@ public class MediaController {
     public String list(Request request, Response response) {
         List<Media> medias;
 
-        String title = request.queryParams("title");
-        String genre = request.queryParams("genre");
-        String type = request.queryParams("type");
-        String date = request.queryParams("datestart") + " " + request.queryParams("dateend");
+        String title = request.queryParams("title") + "/ ";
+        String genre = request.queryParams("genre") + "/ ";
+        String type = request.queryParams("type") + "/ ";
+        String date = request.queryParams("datestart") + "/ " + request.queryParams("dateend") + "/ ";
+        String filters = " " + title + genre + type + date;
 
-        if (title != null && !title.isEmpty()) {
-            medias = mediaDao.filterMedias(title, "title");
-        }
-        else if (genre != null && !genre.isEmpty()){
-            medias = mediaDao.filterMedias(genre, "genre");
-        }
-        else if (type != null && !type.isEmpty()){
-            medias = mediaDao.filterMedias(type, "type");
-        }
-        else if (date != null && !date.isEmpty() && !date.equals(" ")){
-            medias = mediaDao.filterMedias(date, "date");
-        }
-        else {
-            medias = mediaDao.getAllMedias();
-        }
+        medias = mediaDao.filterMedias(filters);
 
         List<Genre> genres = genreDao.getAllGenres();
 

@@ -29,33 +29,59 @@ public class MediaDao {
         return medias;
     }
 
-    public List<Media> filterMedias(String title, String search) {
+    public List<Media> filterMedias(String filter) {
         List<Media> medias = new ArrayList<>();
+
+        List<Integer> addedFilter = new ArrayList<>();
 
         Connection connection = Database.get().getConnection();
         try {
             PreparedStatement st;
-            switch (search){
-                case "title" :
-                    st = connection.prepareStatement("SELECT * FROM media WHERE title LIKE CONCAT('%', ? ,'%' ) ORDER BY release_date DESC;");
-                    break;
-                case "genre" :
-                    st = connection.prepareStatement("SELECT * FROM media WHERE genre_id = (SELECT id FROM genre WHERE name = ?) ORDER BY release_date DESC;");
-                    break;
-                case "type" :
-                    st = connection.prepareStatement("SELECT * FROM media WHERE type = ? ORDER BY release_date DESC;");
-                    break;
-                case "date":
-                    String[] dates = (title.split(" "));
-                    title = dates[0];
-                    st = connection.prepareStatement("SELECT * FROM media WHERE release_date BETWEEN ? AND ? ORDER BY release_date DESC;");
-                    st.setString(2, dates[1]);
-                    break;
-                default :
-                    st = connection.prepareStatement("SELECT * FROM media;");
-                    break;
+
+            String query = "SELECT * FROM media";
+
+            String[] filters = (filter.split("/"));
+
+            if(filters.length != 0){
+
+                if(!filters[0].equals(" ") || !filters[1].equals(" ") || !filters[2].equals(" ") || !filters[3].equals(" ") || !filters[4].equals(" ")){
+                    query += " WHERE ";
+                }
+
+
+                if(null != filters[0] && !filters[0].isEmpty() && !filters[0].equals(" ")){
+                    query+= " title LIKE CONCAT('%', ? ,'%' ) AND";
+                    addedFilter.add(0);
+                }
+                if(null != filters[1] && !filters[1].isEmpty() && !filters[1].equals(" ")){
+                    query+= " genre_id = (SELECT id FROM genre WHERE name = ?) AND";
+                    addedFilter.add(1);
+                }
+                if(null != filters[2] && !filters[2].isEmpty() && !filters[2].equals(" ")){
+                    query+= " type = ? AND";
+                    addedFilter.add(2);
+                }
+                if((null != filters[3] && !filters[3].isEmpty() && !filters[3].equals(" "))
+                        || (null != filters[4] && !filters[4].isEmpty() && !filters[4].equals(" "))){
+                    query+= " release_date BETWEEN ? AND ? AND";
+                    addedFilter.add(3);
+                    addedFilter.add(4);
+
+                }
             }
-            st.setString(1, title);
+            if(query.endsWith("AND")){
+                query = query.substring(0, query.length() - 3);
+            }
+            query += " ORDER BY release_date DESC;";
+
+            System.out.println(query);
+            st = connection.prepareStatement(
+                    query);
+
+            for (int i = 0; i < addedFilter.size() ; i++) {
+                st.setString(i+1, filters[addedFilter.get(i)].replaceAll(" ", ""));
+                System.out.println(filters[addedFilter.get(i)]);
+            }
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
