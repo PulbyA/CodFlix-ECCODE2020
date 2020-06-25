@@ -1,0 +1,36 @@
+#parse("dashboard.html")
+#@mainLayout()
+
+<div class="row">
+    <div class="col-md-4 offset-md-8">
+        <form action="/medias/" method="get">
+            <div class="form-group has-btn">
+                <input type="search" id="search" name="title" class="form-control"
+                       placeholder="Rechercher un film ou une série">
+
+                <button type="submit" class="btn btn-block bg-red">Valider</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="media-list">
+    #foreach($media in $medias)
+        #if ($media.getType().equals("movie"))
+        <a class="item" href="/medias/$media.getId()">
+        #else if ($media.getType().equals("serie"))
+        <a class="item" href="/episodes/">
+        #end if
+            <div class="video">
+                <div>
+                    <iframe allowfullscreen="" frameborder="0"
+                            src="$media.getTrailerUrl()" ></iframe>
+                </div>
+            </div>
+            <div class="title">
+                $media.getTitle()
+            </div>
+        </a>
+    #end
+</div>
+#end

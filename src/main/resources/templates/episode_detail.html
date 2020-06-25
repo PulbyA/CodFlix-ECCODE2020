@@ -1,0 +1,36 @@
+#parse("dashboard.html")
+#@mainLayout()
+
+<div class="episode-detail">
+    <!-- TODO : -->
+    <a class="upper-detail">
+        <h1 class="headerText"><a href="/episodes/">$episode.getMedia().getTitle()</a></h1>
+
+        <p class="headerText">Durée : $episode.getDurationInMinutes() minutes</p>
+        <p class="headerText">$episode.getMedia().findGenreById()</p>
+    </div>
+    <div class="episode-content">
+        <h1 class="headerText">$episode.getTitle()</h1>
+        <div class="left-detail">
+            <div class="episode-infos">
+                <p class="text">Réalisateur : <span>$episode.getMedia().getDirector()</span></p>
+                <p class="text">Date de sortie : <span>$episode.formatDate()</span></p>
+            </div>
+
+
+            <div class="episode-summary">
+                <h5>Résumé : </h5>
+                <p>$episode.getSummary()</p>
+            </div>
+        </div>
+
+        <div class="video">
+            <div>
+                <iframe frameborder="0"
+                        src="$episode.getEpisodeUrl()" ></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+#end

@@ -1,0 +1,30 @@
+#parse("dashboard.html")
+#@mainLayout()
+
+<div>
+    <div class="upper-detail">
+        <h1 class="headerText">$episodeList.get(1)[0].getMedia().getTitle()</h1>
+
+        <p class="headerText">Durée : $episodeList.get(1)[0].getMedia().getFullDurationFromEpisodes() minutes</p>
+        <p class="headerText">$episodeList.get(1)[0].getMedia().findGenreById()</p>
+    </div>
+    #foreach($episodes in $episodeList)
+    <div> Saison $episodes.get(0).getSeason()</div>
+        #foreach($episode in $episodes)
+    <div class="episode-list">
+        <a class="item" href="/episodes/$episode.getSeason()/$episode.getEpisode()">
+            <div class="video">
+                <div>
+                    <iframe allowfullscreen="" frameborder="0"
+                            src="$episode.getEpisodeUrl()" ></iframe>
+                </div>
+            </div>
+            <div class="title">
+                $episode.getTitle()
+            </div>
+        </a>
+    </div>
+        #end
+    #end
+</div>
+#end
