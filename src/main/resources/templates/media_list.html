@@ -38,23 +38,26 @@
     #foreach($media in $medias)
         #if ($media.getType().equals("movie"))
             <a class="item" href="/medias/$media.getId()">
+                <div class="movie">
         #end
         #if($media.getType().equals("serie"))
             <a class="item" href="/episodes/">
+                <div class="serie">
         #end
-            <div class="video">
-                <div>
-                    <iframe allowfullscreen="" frameborder="0"
-                            src="$media.getTrailerUrl()" ></iframe>
+                <div class="video">
+                    <div>
+                        <iframe allowfullscreen="" frameborder="0"
+                                src="$media.getTrailerUrl()" ></iframe>
+                    </div>
                 </div>
-            </div>
-            <div class="title" class="serie">
-                $media.getTitle()
-            </div>
-            <div class="title" class="serie">
-                Date de sortie :
-                $media.getFormattedDate()
-            </div>
+                <div class="title" class="serie">
+                    $media.getTitle()
+                </div>
+                <div class="title" class="serie">
+                    Date de sortie :
+                    $media.getFormattedDate()
+                </div>
+                </div>
         </a>
     #end
 </div>
